@@ -213,60 +213,7 @@ namespace OpenXmlPlayground
             tm3.TestDate = DateTime.Now.AddDays(-3);
             tmList.testData.Add(tm);
 
-            ClsOpenXmlExcel.CreateExcelFile(tmList, "d:\\");
+            ClsOpenXmlExcel.CreateExcelFile(tmList, "d:\\", "Calibri", true);
         }
-
-
-
-        //private List<Paragraph> createBulletList(int nRighe, string txt)
-        //{
-        //    List<Paragraph> retVal = new List<Paragraph>();
-        //    SpacingBetweenLines sbl = new SpacingBetweenLines() { After = "0" };
-        //    Indentation indent = new Indentation() { Left = "100", Hanging = "200" };
-        //    NumberingProperties np = new NumberingProperties(
-        //        new NumberingLevelReference() { Val = 0 },
-        //        new NumberingId() { Val = 1 }
-        //    );
-        //    ParagraphProperties ppUnordered = new ParagraphProperties(np, sbl, indent);
-        //    ppUnordered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
-        //    for (int i = 0; i < nRighe; i++)
-        //    {
-        //        Paragraph p = new Paragraph();
-        //        p.ParagraphProperties = new ParagraphProperties(ppUnordered.OuterXml);
-        //        p.Append(new Run(new Text(txt)));
-        //        retVal.Add(p);
-        //    }
-
-        //    return retVal;
-        //}
-
-        //private List<Paragraph> createNumberedList()
-        //{
-        //    List<Paragraph> retVal = new List<Paragraph>();
-        //    SpacingBetweenLines sbl = new SpacingBetweenLines() { After = "0" };
-        //    Indentation indent = new Indentation() { Left = "100", Hanging = "240" };
-        //    NumberingProperties np = new NumberingProperties(
-        //        new NumberingLevelReference() { Val = 1 },
-        //        new NumberingId() { Val = 2 }
-        //    );
-        //    ParagraphProperties ppOrdered = new ParagraphProperties(np, sbl, indent);
-        //    ppOrdered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
-
-        //    // Pargraph
-        //    Paragraph p1 = new Paragraph();
-        //    p1.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
-        //    p1.Append(new Run(new Text("First elementttt")));
-        //    retVal.Add(p1);
-        //    Paragraph p2 = new Paragraph();
-        //    p2.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
-        //    p2.Append(new Run(new Text("Second Element")));
-        //    retVal.Add(p2);
-        //    Paragraph p3 = new Paragraph();
-        //    p3.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
-        //    p3.Append(new Run(new Text("Third Element")));
-        //    retVal.Add(p3);
-
-        //    return retVal;
-        //}
     }
 }
