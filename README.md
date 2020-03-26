@@ -3,7 +3,7 @@
 Questo è un progetto per la creazione di file Word ed Excel da VisualStudio.
 
 - ### WORD
-  La principale classe usata per la gestione dei file Word è **OpenXmlUtilities**.
+  La principale classe usata per la gestione dei file Word è **ClsOpenXmlUtilities.cs**.
   
   Essa implementa:
   - creazione di stili personalizzati
@@ -13,7 +13,7 @@ Questo è un progetto per la creazione di file Word ed Excel da VisualStudio.
   - creazione di tabelle
   - implementazione di immagini
 - ### EXCEL
-  La principale classe usata per la gestione dei file Word è **OpenXmlExcel**.
+  La principale classe usata per la gestione dei file Word è **ClsOpenXmlExcel.cs**.
   
   Essa implementa:
   - creazione di una standard tabella Excel
