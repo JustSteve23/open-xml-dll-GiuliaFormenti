@@ -15,8 +15,13 @@ namespace OpenXmlExcel
     public class ClsOpenXmlExcel
     {
 
-        public static void CreateExcelFile(TestModelList data, string OutPutFileDirectory)
+        public static string font;
+        public static bool isBold;
+
+        public static void CreateExcelFile(TestModelList data, string OutPutFileDirectory, string Font, bool IsBold)
         {
+            font = Font;
+            isBold = IsBold;
             var datetime = DateTime.Now.ToString().Replace("/", "_").Replace(":", "_");
 
             string fileFullname = Path.Combine(OutPutFileDirectory, "Output.xlsx");
@@ -95,7 +100,7 @@ namespace OpenXmlExcel
             Font font1 = new Font();
             FontSize fontSize1 = new FontSize() { Val = 11D };
             Color color1 = new Color() { Theme = (UInt32Value)1U };
-            FontName fontName1 = new FontName() { Val = "Calibri" };
+            FontName fontName1 = new FontName() { Val = font };
             FontFamilyNumbering fontFamilyNumbering1 = new FontFamilyNumbering() { Val = 2 };
             FontScheme fontScheme1 = new FontScheme() { Val = FontSchemeValues.Minor };
 
@@ -106,14 +111,18 @@ namespace OpenXmlExcel
             font1.Append(fontScheme1);
 
             Font font2 = new Font();
-            Bold bold1 = new Bold();
+            if (isBold)
+            {
+                Bold bold1 = new Bold();
+                font2.Append(bold1);
+            }
+            
             FontSize fontSize2 = new FontSize() { Val = 11D };
             Color color2 = new Color() { Theme = (UInt32Value)1U };
-            FontName fontName2 = new FontName() { Val = "Calibri" };
+            FontName fontName2 = new FontName() { Val = font };
             FontFamilyNumbering fontFamilyNumbering2 = new FontFamilyNumbering() { Val = 2 };
             FontScheme fontScheme2 = new FontScheme() { Val = FontSchemeValues.Minor };
-
-            font2.Append(bold1);
+   
             font2.Append(fontSize2);
             font2.Append(color2);
             font2.Append(fontName2);
