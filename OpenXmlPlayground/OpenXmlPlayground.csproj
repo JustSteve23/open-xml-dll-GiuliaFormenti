@@ -84,6 +84,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenXmlExcel\OpenXmlExcel.csproj">
+      <Project>{42ec97bf-24a3-4128-becb-6666f6e02d9b}</Project>
+      <Name>OpenXmlExcel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenXmlUtilities\OpenXmlUtilities.csproj">
       <Project>{fee02c85-6a72-4e0c-9c13-e7fd94a4bc40}</Project>
       <Name>OpenXmlUtilities</Name>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -71,7 +72,7 @@ namespace OpenXmlUtilities
         }
 
         /*************TABLE*************/
-        public static Table createTable(int nRow, int nCol)
+        public static Table createTable(int nRow, int nCol, string txt)
         {
             Table table = new Table();
             // set table properties
@@ -84,7 +85,7 @@ namespace OpenXmlUtilities
                 {
                     TableCell tc = new TableCell();
                     Paragraph p = CreateParagraphWithStyle("MyTypeScript", JustificationValues.Left);
-                    AddTextToParagraph(p, "ok");
+                    AddTextToParagraph(p, txt);
                     tc.Append(p);
                     tr.Append(tc);
                 }
@@ -130,6 +131,50 @@ namespace OpenXmlUtilities
             tblProperties.AppendChild(tblBorders);
 
             return tblProperties;
+        }
+
+        public static void createBulletNumberingPart(MainDocumentPart mainPart, string bulletChar /*= "-"*/)
+        {
+            NumberingDefinitionsPart numberingPart =
+                        mainPart.AddNewPart<NumberingDefinitionsPart>("NDPBullet");
+            Numbering element =
+              new Numbering(
+                new AbstractNum(
+                  new Level(
+                    new NumberingFormat() { Val = NumberFormatValues.Bullet },
+                    new LevelText() { Val = bulletChar }
+                  )
+                  { LevelIndex = 0 }
+                )
+                { AbstractNumberId = 1 },
+                new NumberingInstance(
+                  new AbstractNumId() { Val = 1 }
+                )
+                { NumberID = 1 });
+            element.Save(numberingPart);
+        }
+
+        public static List<Paragraph> createList(int nRighe, string txt, string typeList, string spacingBetweenLines, string leftIndentation, string hangingIndentation)
+        {
+            int val1 = typeList == "bullet" ? 0 : 1;
+            int val2 = typeList == "bullet" ? 1 : 2;
+            List<Paragraph> retVal = new List<Paragraph>();
+            SpacingBetweenLines sbl = new SpacingBetweenLines() { After = spacingBetweenLines };
+            Indentation indent = new Indentation() { Left = leftIndentation, Hanging = hangingIndentation };
+            NumberingProperties np = new NumberingProperties(
+                new NumberingLevelReference() { Val = val1 },
+                new NumberingId() { Val = val2 }
+            );
+            ParagraphProperties pp = new ParagraphProperties(np, sbl, indent);
+            pp.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
+            for (int i = 0; i < nRighe; i++)
+            {
+                Paragraph p = new Paragraph();
+                p.ParagraphProperties = new ParagraphProperties(pp.OuterXml);
+                p.Append(new Run(new Text(txt)));
+                retVal.Add(p);
+            }
+            return retVal;
         }
 
         public static void InsertPicture(WordprocessingDocument wordprocessingDocument, string fileName)

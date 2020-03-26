@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenXmlPlayground", "OpenXm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenXmlUtilities", "OpenXmlUtilities\OpenXmlUtilities.csproj", "{FEE02C85-6A72-4E0C-9C13-E7FD94A4BC40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenXmlExcel", "OpenXmlExcel\OpenXmlExcel.csproj", "{42EC97BF-24A3-4128-BECB-6666F6E02D9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FEE02C85-6A72-4E0C-9C13-E7FD94A4BC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEE02C85-6A72-4E0C-9C13-E7FD94A4BC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEE02C85-6A72-4E0C-9C13-E7FD94A4BC40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42EC97BF-24A3-4128-BECB-6666F6E02D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42EC97BF-24A3-4128-BECB-6666F6E02D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42EC97BF-24A3-4128-BECB-6666F6E02D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42EC97BF-24A3-4128-BECB-6666F6E02D9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

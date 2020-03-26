@@ -8,6 +8,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using OpenXmlUtilities;
 using Color = DocumentFormat.OpenXml.Wordprocessing.Color;
+using OpenXmlExcel;
 
 namespace OpenXmlPlayground
 {
@@ -64,19 +65,19 @@ namespace OpenXmlPlayground
                     body.AppendChild(newPar);
 
                     // Append a table
-                    Table myTable = ClsOpenXmlUtilities.createTable(3, 3);
+                    Table myTable = ClsOpenXmlUtilities.createTable(3, 3, "ok");
                     body.Append(myTable);
 
                     // Append bullet list
-                    createBulletNumberingPart(mainPart);
-                    List<Paragraph> bulletList = createBulletList();
+                    ClsOpenXmlUtilities.createBulletNumberingPart(mainPart, "-");
+                    List<Paragraph> bulletList = ClsOpenXmlUtilities.createList(3, "bullet", "bullet", "0", "100", "200");/*createBulletList(4, "yes");*/
                     foreach (Paragraph paragraph in bulletList)
                     {
                         body.Append(paragraph);
                     }
 
                     // Append numbered list
-                    List<Paragraph> numberedList = createNumberedList();
+                    List<Paragraph> numberedList = ClsOpenXmlUtilities.createList(3, "numbered", "numbered", "0", "100", "240");/*createNumberedList();*/
                     foreach (Paragraph paragraph in numberedList)
                     {
                         body.Append(paragraph);
@@ -180,172 +181,92 @@ namespace OpenXmlPlayground
             return p;
         }
 
-        //private Table createTable()
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TestModelList tmList = new TestModelList();
+            tmList.testData = new List<TestModel>();
+            TestModel tm = new TestModel();
+            tm.TestId = 1;
+            tm.TestName = "Test1";
+            tm.TestDesc = "Tested 1 time";
+            tm.TestDate = DateTime.Now.Date;
+            tmList.testData.Add(tm);
+
+            TestModel tm1 = new TestModel();
+            tm1.TestId = 2;
+            tm1.TestName = "Test2";
+            tm1.TestDesc = "Tested 2 times";
+            tm1.TestDate = DateTime.Now.AddDays(-1);
+            tmList.testData.Add(tm1);
+
+            TestModel tm2 = new TestModel();
+            tm2.TestId = 3;
+            tm2.TestName = "Test3";
+            tm2.TestDesc = "Tested 3 times";
+            tm2.TestDate = DateTime.Now.AddDays(-2);
+            tmList.testData.Add(tm2);
+
+            TestModel tm3 = new TestModel();
+            tm3.TestId = 4;
+            tm3.TestName = "Test4";
+            tm3.TestDesc = "Tested 4 times";
+            tm3.TestDate = DateTime.Now.AddDays(-3);
+            tmList.testData.Add(tm);
+
+            ClsOpenXmlExcel.CreateExcelFile(tmList, "d:\\");
+        }
+
+
+
+        //private List<Paragraph> createBulletList(int nRighe, string txt)
         //{
-        //    Table table = new Table();
-        //    // set table properties
-        //    table.AppendChild(getTableProperties());
+        //    List<Paragraph> retVal = new List<Paragraph>();
+        //    SpacingBetweenLines sbl = new SpacingBetweenLines() { After = "0" };
+        //    Indentation indent = new Indentation() { Left = "100", Hanging = "200" };
+        //    NumberingProperties np = new NumberingProperties(
+        //        new NumberingLevelReference() { Val = 0 },
+        //        new NumberingId() { Val = 1 }
+        //    );
+        //    ParagraphProperties ppUnordered = new ParagraphProperties(np, sbl, indent);
+        //    ppUnordered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
+        //    for (int i = 0; i < nRighe; i++)
+        //    {
+        //        Paragraph p = new Paragraph();
+        //        p.ParagraphProperties = new ParagraphProperties(ppUnordered.OuterXml);
+        //        p.Append(new Run(new Text(txt)));
+        //        retVal.Add(p);
+        //    }
 
-        //    // row 1
-        //    TableRow tr1 = new TableRow();
-
-        //    TableCell tc11 = new TableCell();
-        //    Paragraph p11 = new Paragraph(new Run(new Text("A")));
-        //    tc11.Append(p11);
-        //    tr1.Append(tc11);
-
-        //    TableCell tc12 = new TableCell();
-        //    Paragraph p12 = new Paragraph();
-        //    Run r12 = new Run();
-        //    RunProperties rp12 = new RunProperties();
-        //    rp12.Bold = new Bold();
-        //    r12.Append(rp12);
-        //    r12.Append(new Text("Nice"));
-        //    p12.Append(r12);
-        //    tc12.Append(p12);
-        //    tr1.Append(tc12);
-
-        //    table.Append(tr1);
-
-        //    // row 2
-        //    TableRow tr2 = new TableRow();
-
-        //    TableCell tc21 = new TableCell();
-        //    Paragraph p21 = new Paragraph(new Run(new Text("Little")));
-        //    tc21.Append(p21);
-        //    tr2.Append(tc21);
-
-        //    TableCell tc22 = new TableCell();
-        //    Paragraph p22 = new Paragraph();
-        //    ParagraphProperties pp22 = new ParagraphProperties();
-        //    pp22.Justification = new Justification() { Val = JustificationValues.Center };
-        //    p22.Append(pp22);
-        //    p22.Append(new Run(new Text("Table")));
-        //    tc22.Append(p22);
-        //    tr2.Append(tc22);
-
-        //    table.Append(tr2);
-
-        //    return table;
+        //    return retVal;
         //}
 
-        //private TableProperties getTableProperties()
+        //private List<Paragraph> createNumberedList()
         //{
-        //    TableProperties tblProperties = new TableProperties();
-        //    TableBorders tblBorders = new TableBorders();
+        //    List<Paragraph> retVal = new List<Paragraph>();
+        //    SpacingBetweenLines sbl = new SpacingBetweenLines() { After = "0" };
+        //    Indentation indent = new Indentation() { Left = "100", Hanging = "240" };
+        //    NumberingProperties np = new NumberingProperties(
+        //        new NumberingLevelReference() { Val = 1 },
+        //        new NumberingId() { Val = 2 }
+        //    );
+        //    ParagraphProperties ppOrdered = new ParagraphProperties(np, sbl, indent);
+        //    ppOrdered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
 
-        //    TopBorder topBorder = new TopBorder();
-        //    topBorder.Val = new EnumValue<BorderValues>(BorderValues.Thick);
-        //    topBorder.Color = "CC0000";
-        //    tblBorders.AppendChild(topBorder);
+        //    // Pargraph
+        //    Paragraph p1 = new Paragraph();
+        //    p1.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
+        //    p1.Append(new Run(new Text("First elementttt")));
+        //    retVal.Add(p1);
+        //    Paragraph p2 = new Paragraph();
+        //    p2.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
+        //    p2.Append(new Run(new Text("Second Element")));
+        //    retVal.Add(p2);
+        //    Paragraph p3 = new Paragraph();
+        //    p3.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
+        //    p3.Append(new Run(new Text("Third Element")));
+        //    retVal.Add(p3);
 
-        //    BottomBorder bottomBorder = new BottomBorder();
-        //    bottomBorder.Val = new EnumValue<BorderValues>(BorderValues.Thick);
-        //    bottomBorder.Color = "CC0000";
-        //    tblBorders.AppendChild(bottomBorder);
-
-        //    RightBorder rightBorder = new RightBorder();
-        //    rightBorder.Val = new EnumValue<BorderValues>(BorderValues.Thick);
-        //    rightBorder.Color = "CC0000";
-        //    tblBorders.AppendChild(rightBorder);
-
-        //    LeftBorder leftBorder = new LeftBorder();
-        //    leftBorder.Val = new EnumValue<BorderValues>(BorderValues.Thick);
-        //    leftBorder.Color = "CC0000";
-        //    tblBorders.AppendChild(leftBorder);
-
-        //    InsideHorizontalBorder insideHBorder = new InsideHorizontalBorder();
-        //    insideHBorder.Val = new EnumValue<BorderValues>(BorderValues.Thick);
-        //    insideHBorder.Color = "CC0000";
-        //    tblBorders.AppendChild(insideHBorder);
-
-        //    InsideVerticalBorder insideVBorder = new InsideVerticalBorder();
-        //    insideVBorder.Val = new EnumValue<BorderValues>(BorderValues.Thick);
-        //    insideVBorder.Color = "CC0000";
-        //    tblBorders.AppendChild(insideVBorder);
-
-        //    tblProperties.AppendChild(tblBorders);
-
-        //    return tblProperties;
+        //    return retVal;
         //}
-
-        private void createBulletNumberingPart(MainDocumentPart mainPart, string bulletChar = "-")
-        {
-            NumberingDefinitionsPart numberingPart =
-                        mainPart.AddNewPart<NumberingDefinitionsPart>("NDPBullet");
-            Numbering element =
-              new Numbering(
-                new AbstractNum(
-                  new Level(
-                    new NumberingFormat() { Val = NumberFormatValues.Bullet },
-                    new LevelText() { Val = bulletChar }
-                  )
-                  { LevelIndex = 0 }
-                )
-                { AbstractNumberId = 1 },
-                new NumberingInstance(
-                  new AbstractNumId() { Val = 1 }
-                )
-                { NumberID = 1 });
-            element.Save(numberingPart);
-        }
-
-        private List<Paragraph> createBulletList()
-        {
-            List<Paragraph> retVal = new List<Paragraph>();
-            SpacingBetweenLines sbl = new SpacingBetweenLines() { After = "0" };
-            Indentation indent = new Indentation() { Left = "100", Hanging = "200" };
-            NumberingProperties np = new NumberingProperties(
-                new NumberingLevelReference() { Val = 0 },
-                new NumberingId() { Val = 1 }
-            );
-            ParagraphProperties ppUnordered = new ParagraphProperties(np, sbl, indent);
-            ppUnordered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
-
-            // Pargraph
-            Paragraph p1 = new Paragraph();
-            p1.ParagraphProperties = new ParagraphProperties(ppUnordered.OuterXml);
-            p1.Append(new Run(new Text("First elementttt")));
-            retVal.Add(p1);
-            Paragraph p2 = new Paragraph();
-            p2.ParagraphProperties = new ParagraphProperties(ppUnordered.OuterXml);
-            p2.Append(new Run(new Text("Second Element")));
-            retVal.Add(p2);
-            Paragraph p3 = new Paragraph();
-            p3.ParagraphProperties = new ParagraphProperties(ppUnordered.OuterXml);
-            p3.Append(new Run(new Text("Third Element")));
-            retVal.Add(p3);
-
-            return retVal;
-        }
-
-        private List<Paragraph> createNumberedList()
-        {
-            List<Paragraph> retVal = new List<Paragraph>();
-            SpacingBetweenLines sbl = new SpacingBetweenLines() { After = "0" };
-            Indentation indent = new Indentation() { Left = "100", Hanging = "240" };
-            NumberingProperties np = new NumberingProperties(
-                new NumberingLevelReference() { Val = 1 },
-                new NumberingId() { Val = 2 }
-            );
-            ParagraphProperties ppOrdered = new ParagraphProperties(np, sbl, indent);
-            ppOrdered.ParagraphStyleId = new ParagraphStyleId() { Val = "ListParagraph" };
-
-            // Pargraph
-            Paragraph p1 = new Paragraph();
-            p1.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
-            p1.Append(new Run(new Text("First elementttt")));
-            retVal.Add(p1);
-            Paragraph p2 = new Paragraph();
-            p2.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
-            p2.Append(new Run(new Text("Second Element")));
-            retVal.Add(p2);
-            Paragraph p3 = new Paragraph();
-            p3.ParagraphProperties = new ParagraphProperties(ppOrdered.OuterXml);
-            p3.Append(new Run(new Text("Third Element")));
-            retVal.Add(p3);
-
-            return retVal;
-        }
     }
 }
