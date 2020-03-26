@@ -1,6 +1,8 @@
-This is the README file.
-
-Giulia Formenti 4B Informatica
-
 # open-xml-dll-GiuliaFormenti
-open-xml-dll-GiuliaFormenti created by GitHub Classroom
+
+Questo è un progetto per la creazione di file Word ed Excel da VisualStudio.
+Contiene due classi principali:
+-**OpenXmlUtilities** che contiene i sottoprogrammi per la gestione della parte di Word.
+-**OpenXmlExcel** che contiene i sottoprogrammi per la gestione della parte di Excel.
+
+###### Creato da Giulia Formenti 4B INF
